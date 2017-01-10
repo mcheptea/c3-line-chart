@@ -146,7 +146,7 @@ define(function (require) {
                 config.legend = {};
                 config.data = {};
                 config.data.x = 'data0';
-                config.data.columns = metrics[subchart];
+                config.data.columns = addTotalstoLabels(metrics[subchart]);
 
                 // check if data must be hide
                 if (typeof $scope.vis.params.configLine.datahide != "undefined") {
@@ -242,7 +242,7 @@ define(function (require) {
                 metrics = [];
                 filters = false;
 
-                // get informations columns
+                //get information columns
                 var columns = table.columns;
                 columns.forEach(function (column, i) {
                     cols[i] = column.title;
@@ -377,7 +377,7 @@ define(function (require) {
                     });
                 }
             });
-            console.log(label);
+
             $scope.$root.editorLine.label = label;
         };
 
@@ -414,5 +414,45 @@ define(function (require) {
             true
         );
 
+        /**
+         * Add column's total count to the label.
+         *
+         * @param columns Array of columns
+         * @returns {*}
+         */
+        function addTotalstoLabels(columns)
+        {
+            if ($scope.vis.params.configLine.totals != true) {
+                return columns;
+            }
+
+            columns.forEach(function (column, i) {
+                var label = column.shift();
+
+                if (i > 0) {
+                    label = label + " (" + sumArrayValues(column) + ")"
+                }
+
+                columns[i][0] = label;
+            });
+
+            return columns;
+        }
+
+        /**
+         * Sums the values of an array.
+         *
+         * @param list
+         * @returns {number}
+         */
+        function sumArrayValues(list)
+        {
+            var sum = 0;
+            list.forEach(function(item, index){
+                sum += item;
+            });
+
+            return sum;
+        }
     })
 });
