@@ -2,11 +2,11 @@
 
 module.exports = function (kibana) {
 
-  return new kibana.Plugin({
+    return new kibana.Plugin({
 
-    uiExports: {
-      visTypes: ['plugins/line_sg/line_sg']
-    }
+        uiExports: {
+            visTypes: ['plugins/line_sg/line_sg']
+        }
 
-  });
+    });
 };
