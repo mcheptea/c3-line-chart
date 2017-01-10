@@ -118,9 +118,11 @@ define(function (require) {
         var subcharts = 1;
         var filters = false;
         moment.locale('fr');
-
-        // Generation graphics C3.js
         $scope.chart = [];
+
+        /**
+         * Create and display the C3 graph.
+         */
         $scope.showGraph = function () {
 
             // find element of class chartc3 and clear
@@ -234,6 +236,11 @@ define(function (require) {
             }
         }
 
+        /**
+         * Extract aggregation data into arrays recognizable by C3.
+         *
+         * @param tableGroups
+         */
         $scope.processTableGroups = function (tableGroups) {
             tableGroups.tables.forEach(function (table) {
                 label = {};
@@ -381,17 +388,20 @@ define(function (require) {
             $scope.$root.editorLine.label = label;
         };
 
-        // Get query results ElasticSearch
+        /**
+         * Watch and process ElasticSearch query result.
+         */
         $scope.$watch('esResponse', function (resp) {
             if (resp) {
-                console.log(resp);
                 metrics.length = 0;
                 $scope.processTableGroups(tabifyAggResponse($scope.vis, resp));
                 $scope.showGraph();
             }
         });
 
-        // Automatic resizing of graphics
+        /**
+         * Automatic graph resize.
+         */
         $scope.$watch(
             function () {
                 var elem = $(idchart[0]).closest('div.visualize-chart');
@@ -438,7 +448,7 @@ define(function (require) {
 
                 names[labelKey] = labelValue;
             });
-            console.log(names);
+
             return names;
         }
 
