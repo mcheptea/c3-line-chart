@@ -146,7 +146,7 @@ define(function (require) {
                 config.legend = {};
                 config.data = {};
                 config.data.x = 'data0';
-                config.data.columns = addTotalstoLabels(metrics[subchart]);
+                config.data.columns = metrics[subchart];
 
                 // check if data must be hide
                 if (typeof $scope.vis.params.configLine.datahide != "undefined") {
@@ -156,7 +156,7 @@ define(function (require) {
                     });
                 }
 
-                config.data.names = $scope.vis.params.configLine.names;
+                config.data.names = setColumnNames(config.data.columns, $scope.vis.params.configLine.names);
                 config.data.types = $scope.vis.params.configLine.type;
                 config.data.groups = ( $scope.vis.params.configLinegrouped != "none" ) ? [group] : "";
                 config.data.colors = $scope.vis.params.configLine.colors;
@@ -415,28 +415,31 @@ define(function (require) {
         );
 
         /**
-         * Add column's total count to the label.
+         * Sets custom column/line names.
          *
-         * @param columns Array of columns
-         * @returns {*}
+         * @param columns
+         * @param customNames
          */
-        function addTotalstoLabels(columns)
-        {
-            if ($scope.vis.params.configLine.totals != true) {
-                return columns;
-            }
+        function setColumnNames(columns, customNames) {
+            var names = {};
 
-            columns.forEach(function (column, i) {
-                var label = column.shift();
-
-                if (i > 0) {
-                    label = label + " (" + sumArrayValues(column) + ")"
+            columns.forEach(function (column, index){
+                if (index == 0) {
+                    //first row contains axis data
+                    return;
                 }
 
-                columns[i][0] = label;
-            });
+                var labelKey = column[0];
+                var labelValue = customNames[labelKey] != "" ? customNames[labelKey] : labelKey;
 
-            return columns;
+                if ($scope.vis.params.configLine.totals) {
+                    labelValue = labelValue + " (" + sumArrayValues(column) + ")";
+                }
+
+                names[labelKey] = labelValue;
+            });
+            console.log(names);
+            return names;
         }
 
         /**
@@ -449,7 +452,7 @@ define(function (require) {
         {
             var sum = 0;
             list.forEach(function(item, index){
-                sum += item;
+                sum += parseInt(item) || 0;
             });
 
             return sum;
