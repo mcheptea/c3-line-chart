@@ -4,7 +4,7 @@ define(function (require) {
     var d3 = require('d3');
     var c3 = require('./bower_components/c3');
     var moment = require('./bower_components/moment/moment');
-    var module = require('ui/modules').get('kibana/line_sg', ['kibana']);
+    var module = require('ui/modules').get('kibana/c3-line-chart', ['kibana']);
 
     module.controller('KbnLineVisController', function ($scope, $element, $window, Private) {
 

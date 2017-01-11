@@ -1,12 +1,7 @@
 define(function (require) {
 
-    // we need to load the css ourselves
-    require('plugins/line_sg/line_sg.less');
-
-    // we also need to load the controller and used by the template
-    require('plugins/line_sg/line_sg_controller');
-
-    // register the provider with the visTypes registry
+    require('plugins/c3-line-chart/c3linechart.less');
+    require('plugins/c3-line-chart/c3linechartController');
     require('ui/registry/vis_types').register(MetricVisProvider);
 
     function MetricVisProvider(Private) {
@@ -16,11 +11,11 @@ define(function (require) {
         // return the visType object, which kibana will use to display and configure new
         // Vis object of this type.
         return new TemplateVisType({
-            name: 'line-sg',
-            title: 'Line-sg',
-            description: 'This plugin allows the creation of a view with several types of graphics on Kibana Version 4.2.2, 4.3.0, 4.4.0, 4.5.0',
-            icon: 'fa-diamond',
-            template: require('plugins/line_sg/line_sg.html'),
+            name: 'c3-line-chart',
+            title: 'C3 Line Chart',
+            description: 'C3 enhanced line charts for Kibana 4.x. Sports: line, bar, step and spline charts.',
+            icon: 'fa-bolt',
+            template: require('plugins/c3-line-chart/views/graph.html'),
             params: {
                 defaults: {
                     configLine: {},
@@ -33,7 +28,7 @@ define(function (require) {
                     configLine_xrotate: 0,
                     configLine_autoscale: false
                 },
-                editor: require('plugins/line_sg/line_sg_params.html')
+                editor: require('plugins/c3-line-chart/views/options.html')
             },
             schemas: new Schemas([
                 {
@@ -51,7 +46,6 @@ define(function (require) {
                     name: 'segment',
                     title: 'X-Axis',
                     min: 0
-                    //aggFilter: ['terms','date_histogram','filters']
                 }
             ])
         });

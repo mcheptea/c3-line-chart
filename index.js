@@ -5,7 +5,7 @@ module.exports = function (kibana) {
     return new kibana.Plugin({
 
         uiExports: {
-            visTypes: ['plugins/line_sg/line_sg']
+            visTypes: ['plugins/c3-line-chart/c3linechart']
         }
 
     });
