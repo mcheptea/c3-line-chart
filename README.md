@@ -16,10 +16,13 @@ This plugin provides an enhanced line graph for Kibana 4.x. Among the features a
 * Adjust axe format.
 * Custom axe range.
 * Totals per line/column.
+* Setting treshholds.
+* Inverting axes.
+
 
 Used Libraries
 --------------
-* [c3.js](http://c3js.org/): C3 a D3-based chart library. ()
+* [c3.js](http://c3js.org/): C3 a D3-based chart library.
 * [moment.js](http://momentjs.com/): Parse, validate, manipulate, and display dates in JavaScript.
 
 Installation
