@@ -30,7 +30,7 @@ Installation
 
 ```
 	$ cd <path>/kibana/installedPlugins
-	$ git clone -b 4.x <path/to/repo> c3-line-chart
+	$ git clone -b 4.x https://github.com/mcheptea/c3-line-chart.git c3-line-chart
 ```
 
 
