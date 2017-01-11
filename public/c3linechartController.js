@@ -10,7 +10,7 @@ define(function (require) {
 
         var tabifyAggResponse = Private(require('ui/agg_response/tabify/tabify'));
 
-        // Initialization of plugin settings
+        //Init plugin settings
         $scope.$root.editorLine = {};
         $scope.$root.editorLine.axisy = ["y", "y2"];
         $scope.$root.editorLine.group = ["none", "grouped"];
@@ -64,7 +64,7 @@ define(function (require) {
         };
 
         // function for autoscale max/min range if enabled
-        autoscale = function (value, type, axis, relation, active, subchart) {
+        var autoscale = function (value, type, axis, relation, active, subchart) {
             if (active) {
                 if (typeof relation != "undefined") {
                     for (var key in relation) {
@@ -119,6 +119,7 @@ define(function (require) {
         var filters = false;
         moment.locale('fr');
         $scope.chart = [];
+        $scope.vis.params.configLine.names = {};
 
         /**
          * Create and display the C3 graph.
@@ -440,7 +441,12 @@ define(function (require) {
                 }
 
                 var labelKey = column[0];
-                var labelValue = customNames[labelKey] != "" ? customNames[labelKey] : labelKey;
+                var labelValue = labelKey;
+                console.log(customNames);
+                console.log(labelKey, labelValue);
+                if(customNames) {
+                    labelValue = customNames.hasOwnProperty(labelKey) && customNames[labelKey] != "" ? customNames[labelKey] : labelKey;
+                }
 
                 if ($scope.vis.params.configLine.totals) {
                     labelValue = labelValue + " (" + sumArrayValues(column) + ")";
