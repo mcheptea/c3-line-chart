@@ -18,6 +18,7 @@ This plugin provides an enhanced line graph for Kibana 4.x. Among the features a
 * Totals per line/column.
 * Setting treshholds.
 * Inverting axes.
+* Zoom.
 
 
 Used Libraries
