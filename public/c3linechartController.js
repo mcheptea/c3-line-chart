@@ -148,6 +148,7 @@ define(function (require) {
                 config.bindto = e[0];
                 config.legend = {};
                 config.data = {};
+                config.zoom = {};
                 config.data.x = 'data0';
                 config.data.columns = metrics[subchart];
 
@@ -158,6 +159,8 @@ define(function (require) {
                         return obj[key];
                     });
                 }
+
+                config.zoom.enabled = $scope.vis.params.configLine.zoom;
 
                 config.data.names = setColumnNames(config.data.columns, $scope.vis.params.configLine.names);
                 config.data.types = $scope.vis.params.configLine.type;
