@@ -126,7 +126,7 @@ define(function (require) {
          */
         $scope.showGraph = function () {
 
-            // find element of class chartc3 and clear
+            //clean-up chart
             idchart = $element.children().find(".chartc3");
             idchart.empty();
 
@@ -152,11 +152,11 @@ define(function (require) {
                 config.data.x = 'data0';
                 config.data.columns = metrics[subchart];
 
-                // check if data must be hide
-                if (typeof $scope.vis.params.configLine.datahide != "undefined") {
-                    var obj = $scope.vis.params.configLine.datahide;
-                    config.data.hide = config.legend.hide = Object.keys(obj).filter(function (key) {
-                        return obj[key];
+                // check if data must be hidden
+                if (typeof $scope.vis.params.configLine.hiddenLines != "undefined") {
+                    var hiddenLines = $scope.vis.params.configLine.hiddenLines;
+                    config.data.hide = config.legend.hide = Object.keys(hiddenLines).filter(function (key) {
+                        return hiddenLines[key];
                     });
                 }
 
